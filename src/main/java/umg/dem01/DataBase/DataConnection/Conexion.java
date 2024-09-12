@@ -1,4 +1,4 @@
-package umg.dem01.DataBase.Conexion;
+package umg.dem01.DataBase.DataConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +10,11 @@ public class Conexion {
     private static final String USER = "root";
     private static final String PASSWORD = "53150944cerna";
 
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    /*
     // -------------Método para obtener una conexión a la base de datos----------------------
     public static Connection getConnection() {
         try {
@@ -28,7 +33,7 @@ public class Conexion {
             System.out.println("Error al cerrar la conexión.");
             e.printStackTrace();
         }
-    }
+    */
 
 
 

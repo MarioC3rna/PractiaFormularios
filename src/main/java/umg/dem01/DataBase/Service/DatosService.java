@@ -8,32 +8,28 @@ import java.util.List;
 
 public class DatosService {
 
-    private DatosDAO datosDAO;
+    private DatosDAO datosDAO= new DatosDAO();
 
-    public DatosService() {
-        datosDAO = new DatosDAO();
+    private DatosDAO DatosDAO = new DatosDAO();
+
+    public boolean insertarDato(Datos dato) {
+        return DatosDAO.insertar(dato);
     }
 
-    public void createDatos(Datos datos) throws SQLException {
-        datosDAO.create(datos);
+    public List<Datos> obtenerTodosLosDatos() {
+        return DatosDAO.obtenerTodos();
+    }
+    public Datos obtenerPorId(int id) throws SQLException {
+        return DatosDAO.obtenerPorId(id);
     }
 
-    public Datos getDatos(int codigo) throws SQLException {
-        return datosDAO.read(codigo);
+    public boolean actualizarDato(Datos dato) {
+        return DatosDAO.actualizar(dato);
     }
 
-    public void updateDatos(Datos datos) throws SQLException {
-        datosDAO.update(datos);
+    public boolean eliminarDato(int codigo) {
+        return DatosDAO.eliminar(codigo);
     }
-
-    public void deleteDatos(int codigo) throws SQLException {
-        datosDAO.delete(codigo);
-    }
-
-    public List<Datos> getAllDatos() throws SQLException {
-        return datosDAO.getAll();
-    }
-
 
 
 }

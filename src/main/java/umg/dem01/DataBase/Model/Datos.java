@@ -9,7 +9,17 @@ public class Datos {
     private String departamento;
     private java.sql.Date fechaNacimiento;
 
+    // Constructor vacío
+    public Datos() {}
 
+    // Constructor con parámetros
+    public Datos(int codigo, String nombre, String apellido, String departamento, java.sql.Date fechaNacimiento) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.departamento = departamento;
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     // Getters y Setters
     public int getCodigo() {
@@ -44,14 +54,13 @@ public class Datos {
         this.departamento = departamento;
     }
 
-    public Date getFechaNacimiento() {
+    public java.sql.Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(java.sql.Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-
 
 
 

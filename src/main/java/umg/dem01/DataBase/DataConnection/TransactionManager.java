@@ -1,4 +1,4 @@
-package umg.dem01.DataBase.Conexion;
+package umg.dem01.DataBase.DataConnection;
 
 import java.sql.Connection;
 import java.sql.SQLException;

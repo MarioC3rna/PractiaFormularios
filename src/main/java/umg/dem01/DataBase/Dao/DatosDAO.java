@@ -1,6 +1,6 @@
 package umg.dem01.DataBase.Dao;
 
-import umg.dem01.DataBase.Conexion.Conexion;
+import umg.dem01.DataBase.DataConnection.Conexion;
 import umg.dem01.DataBase.Model.Datos;
 
 import java.sql.*;
@@ -9,81 +9,93 @@ import java.util.List;
 
 public class DatosDAO {
 
-    private Connection connection;
 
-    public DatosDAO() {
-        connection = Conexion.getConnection();
-    }
-
-    public void create() throws SQLException {
-        create(null);
-    }
-
-    public void create(Datos datos) throws SQLException {
+    public boolean insertar(Datos dato) {
         String sql = "INSERT INTO tb_datos (nombre, apellido, departamento, fecha_nacimiento) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, datos.getNombre());
-            stmt.setString(2, datos.getApellido());
-            stmt.setString(3, datos.getDepartamento());
-            stmt.setDate(4, new Date(datos.getFechaNacimiento().getTime()));
-            stmt.executeUpdate();
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, dato.getNombre());
+            pstmt.setString(2, dato.getApellido());
+            pstmt.setString(3, dato.getDepartamento());
+            pstmt.setDate(4, dato.getFechaNacimiento());
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
-    public Datos read(int codigo) throws SQLException {
+    public List<Datos> obtenerTodos() {
+        List<Datos> datos = new ArrayList<>();
+        String sql = "SELECT * FROM tb_datos";
+        try (Connection conn =Conexion.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Datos dato = new Datos();
+                dato.setCodigo(rs.getInt("codigo"));
+                dato.setNombre(rs.getString("nombre"));
+                dato.setApellido(rs.getString("apellido"));
+                dato.setDepartamento(rs.getString("departamento"));
+                dato.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
+                datos.add(dato);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return datos;
+    }
+    public Datos obtenerPorId(int id) throws SQLException {
         String sql = "SELECT * FROM tb_datos WHERE codigo = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, codigo);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Datos datos = new Datos();
-                datos.setCodigo(rs.getInt("codigo"));
-                datos.setNombre(rs.getString("nombre"));
-                datos.setApellido(rs.getString("apellido"));
-                datos.setDepartamento(rs.getString("departamento"));
-                datos.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
-                return datos;
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Datos(
+                            rs.getInt("codigo"),
+                            rs.getString("nombre"),
+                            rs.getString("apellido"),
+                            rs.getString("departamento"),
+                            rs.getDate("fecha_nacimiento")
+                    );
+                }
             }
         }
         return null;
     }
 
-    public void update(Datos datos) throws SQLException {
+
+
+    public boolean actualizar(Datos dato) {
         String sql = "UPDATE tb_datos SET nombre = ?, apellido = ?, departamento = ?, fecha_nacimiento = ? WHERE codigo = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, datos.getNombre());
-            stmt.setString(2, datos.getApellido());
-            stmt.setString(3, datos.getDepartamento());
-            stmt.setDate(4, new Date(datos.getFechaNacimiento().getTime()));
-            stmt.setInt(5, datos.getCodigo());
-            stmt.executeUpdate();
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, dato.getNombre());
+            pstmt.setString(2, dato.getApellido());
+            pstmt.setString(3, dato.getDepartamento());
+            pstmt.setDate(4, dato.getFechaNacimiento());
+            pstmt.setInt(5, dato.getCodigo());
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
-    public void delete(int codigo) throws SQLException {
+    public boolean eliminar(int codigo) {
         String sql = "DELETE FROM tb_datos WHERE codigo = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, codigo);
-            stmt.executeUpdate();
+        try (Connection conn = Conexion.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, codigo);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return false;
     }
-
-    public List<Datos> getAll() throws SQLException {
-        List<Datos> listaDatos = new ArrayList<>();
-        String sql = "SELECT * FROM tb_datos";
-        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                Datos datos = new Datos();
-                datos.setCodigo(rs.getInt("codigo"));
-                datos.setNombre(rs.getString("nombre"));
-                datos.setApellido(rs.getString("apellido"));
-                datos.setDepartamento(rs.getString("departamento"));
-                datos.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
-                listaDatos.add(datos);
-            }
-        }
-        return listaDatos;
-    }
-
-
 }
