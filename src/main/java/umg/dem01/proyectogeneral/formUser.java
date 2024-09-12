@@ -46,21 +46,9 @@ public class formUser extends JFrame {
         bttonCrear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
 
 
-                Datos datos = new Datos();
-                txtNombre.getText();
-                txtApellido.getText();
-                txtDepartamento.getText();
-                java.sql.Date.valueOf(txtFechaNacimiento.getText());
 
-                create(Datosatos);
-                JOptionPane.showMessageDialog(null,"Datos ingresados Correctamente");
-
-                }catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null,"Error al ingresar el Dato"+ ex.getMessage());
-                }
 
 
 
