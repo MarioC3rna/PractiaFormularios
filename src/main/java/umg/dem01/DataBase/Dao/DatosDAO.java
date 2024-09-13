@@ -1,6 +1,6 @@
 package umg.dem01.DataBase.Dao;
 
-import umg.dem01.DataBase.DataConnection.Conexion;
+import umg.dem01.DataBase.DataConnection.DatabaseConnection;
 import umg.dem01.DataBase.Model.Datos;
 
 import java.sql.*;
@@ -12,7 +12,7 @@ public class DatosDAO {
 
     public boolean insertar(Datos dato) {
         String sql = "INSERT INTO tb_datos (nombre, apellido, departamento, fecha_nacimiento) VALUES (?, ?, ?, ?)";
-        try (Connection conn = Conexion.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, dato.getNombre());
             pstmt.setString(2, dato.getApellido());
@@ -29,7 +29,7 @@ public class DatosDAO {
     public List<Datos> obtenerTodos() {
         List<Datos> datos = new ArrayList<>();
         String sql = "SELECT * FROM tb_datos";
-        try (Connection conn =Conexion.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -49,7 +49,7 @@ public class DatosDAO {
     }
     public Datos obtenerPorId(int id) throws SQLException {
         String sql = "SELECT * FROM tb_datos WHERE codigo = ?";
-        try (Connection conn = Conexion.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -71,7 +71,7 @@ public class DatosDAO {
 
     public boolean actualizar(Datos dato) {
         String sql = "UPDATE tb_datos SET nombre = ?, apellido = ?, departamento = ?, fecha_nacimiento = ? WHERE codigo = ?";
-        try (Connection conn = Conexion.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, dato.getNombre());
             pstmt.setString(2, dato.getApellido());
@@ -88,7 +88,7 @@ public class DatosDAO {
 
     public boolean eliminar(int codigo) {
         String sql = "DELETE FROM tb_datos WHERE codigo = ?";
-        try (Connection conn = Conexion.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, codigo);
             pstmt.executeUpdate();

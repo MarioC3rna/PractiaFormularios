@@ -3,13 +3,11 @@ package umg.dem01.proyectogeneral;
 
 
 
+import umg.dem01.DataBase.Model.UserDatos;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class formRegistro extends JFrame {
@@ -18,42 +16,42 @@ public class formRegistro extends JFrame {
     private JButton bttonAgregar;
     private JButton bttonEliminar;
     private JLabel lblNombre;
-    private JLabel lblApellido;
-    private JTextField txtFecha;
-    private JLabel lblFecha;
     private JTextField txtDepartamento;
     private JTextField txtApellido;
     private JTextField txtNombre;
     private JLabel lblCorreo;
     private JTextField txtCorreo;
     private JButton btton;
-    private JTextField txtCodigo;
-    private JLabel lblCodigo;
+    private JTextField txtCarne;
+    private JLabel lblCarne;
+    private JPanel panelRegistro;
+    private JLabel lblSeccion;
+    private JTextField txtSeccion;
+    private JTextField txtTelegramid;
+    private JLabel lblTelegramid;
+    private JLabel lblActivo;
+    private JTextField txtActivo;
 
 
     public formRegistro() {
+        setContentPane(panelRegistro);
         setTitle("formRegistro");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+
+
+        //___________________________________________________________
         bttonAgregar.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String nombre = txtNombre.getText();
-                String apellido = txtApellido.getText();
-                String departamento = txtDepartamento.getText();
-                String correo = txtCorreo.getText();
+            public void actionPerformed(ActionEvent e)
+            {
+                UserDatos Datos = new UserDatos();
+                UserDatos.setCarne(textCorreo)
+                UserDatos.setNombre(txtNombre.getText());
+                Datos.setApellido(txtApellido.getText());
+                Datos.setDepartamento(txtDepartamento.getText());
 
-                String fechaNacimiento = txtFecha.getText();
-                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-                Date fecha= null;
-                try
-                {
-                    fecha = formatoFecha.parse(fechaNacimiento);
-                }catch(ParseException ex){
-                    JOptionPane.showMessageDialog(null, "Fecha incorrecta");
-                    return;
-                }
 
 
 
@@ -61,6 +59,7 @@ public class formRegistro extends JFrame {
 
             }
         });
+
         //------------------------------------------------
         bttonMostrar.addActionListener(new ActionListener() {
             @Override
@@ -68,6 +67,7 @@ public class formRegistro extends JFrame {
 
             }
         });
+
         //-------------------------------------------------
         bttonActualizar.addActionListener(new ActionListener() {
             @Override
@@ -75,6 +75,7 @@ public class formRegistro extends JFrame {
 
             }
         });
+
         //---------------------------------------------------
         bttonEliminar.addActionListener(new ActionListener() {
             @Override
@@ -82,6 +83,8 @@ public class formRegistro extends JFrame {
 
             }
         });
+
+
         //--------------------------------------------------------
         btton.addActionListener(new ActionListener() {
             @Override
@@ -93,7 +96,5 @@ public class formRegistro extends JFrame {
 
 
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
+
 }

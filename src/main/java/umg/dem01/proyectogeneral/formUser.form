@@ -80,14 +80,6 @@
           <text value="FECHA DE NACIMIENTO"/>
         </properties>
       </component>
-      <component id="6ca60" class="javax.swing.JTextField" binding="txtCodigo">
-        <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="132" height="30"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
       <component id="e36f9" class="javax.swing.JLabel" binding="lblCode">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
