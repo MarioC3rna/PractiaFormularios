@@ -74,6 +74,7 @@ public class formUser extends JFrame {
                         JOptionPane.showMessageDialog(null, "Error: Formato de fecha incorrecto.");
                         return; // Salir del método si hay un error de fecha
                     }
+
                     // Bloque para la inserción en la base de datos
                     new DatosService().insertarDato(Datos);
                     JOptionPane.showMessageDialog(null, "Datos ingresado");
@@ -217,6 +218,10 @@ public class formUser extends JFrame {
             }
 
 
+
+
+
+            
         });
     }
 

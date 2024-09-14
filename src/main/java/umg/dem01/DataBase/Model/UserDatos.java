@@ -18,13 +18,13 @@ public class UserDatos {
     public UserDatos() {}
 
     // Constructor con parámetros
-    public UserDatos(int carne, String nombre, String seccion,String  correo, String telegramid,boolean activo) {
+    public UserDatos(int carne, String nombre, String seccion, String correo, String telegramid, boolean activo) {
         this.carne = carne;
         this.nombre = nombre;
         this.seccion = seccion;
-        this.correo= correo;
+        this.correo = correo;
         this.telegramid = telegramid;
-        this.activo = activo ;
+        this.activo = activo;
     }
 
     // Getters y Setters
@@ -43,13 +43,14 @@ public class UserDatos {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getSeccion() {
         return seccion;
     }
+
     public void setSeccion(String seccion) {
         this.seccion = seccion;
     }
-
 
     public String getCorreo() {
         return correo;
@@ -74,28 +75,4 @@ public class UserDatos {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
